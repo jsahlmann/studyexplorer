@@ -1,0 +1,4 @@
+/docs/
+/src/__pycache__/
+/data/
+*.zip
