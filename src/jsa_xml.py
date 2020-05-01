@@ -1,5 +1,5 @@
 '''
-Parsen eines XML-Dokuments mit ElementTree
+Parsing an XML file with ElementTree
 
 https://www.datacamp.com/community/tutorials/python-xml-elementtree
 '''
@@ -14,6 +14,8 @@ def search_xml(f, xs):
 
 if __name__ == "__main__":
     import xml.etree.ElementTree as ET
-    res = search_xml('G:/projekte/studyexplorer/data/NCT00000102.xml', 'intervention_browse/mesh_term')
+    res = search_xml('G:/projekte/studyexplorer/data/NCT0001xxxx/NCT00019994.xml', 'intervention_browse/mesh_term')
+    n = 0
     for elem in res:
-        print(elem)
+        n += 1
+        print(n, elem)
