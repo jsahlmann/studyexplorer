@@ -4,20 +4,26 @@ Parsing an XML file with ElementTree and saving the some data into an sqlite3 da
 Two tables will be created. One for the data with a 1:1 relationship and one for the
 data with a 1:n relationship.
 
-Exporting to CSV
+Retrieving inserted data from database.
 
 https://www.datacamp.com/community/tutorials/python-xml-elementtree
 https://www.sqlitetutorial.net/sqlite-python/creating-database/
 https://www.sqlitetutorial.net/sqlite-python/create-tables/
+https://stackoverflow.com/questions/22488763/sqlite-insert-query-not-working-with-python
 '''
 def db_init(db_file):
     '''
+    This procedure initializes a database and creates the necessary tables.
 
+    Args:
+        db_file (str): path to databasefile
+    
+    Returns:
+        NONE
     '''
     conn = None
     try:
         conn = sqlite3.connect(db_file)
-        print(sqlite3.version)
         select_create_table_study = ''' CREATE TABLE IF NOT EXISTS study (
 	        id integer PRIMARY KEY AUTOINCREMENT,
 	        nct_id text NOT NULL,
@@ -43,6 +49,7 @@ def db_init(db_file):
 
 def db_fill(db_file, f):
     '''
+
     '''
     conn = None
     try:
@@ -52,25 +59,22 @@ def db_fill(db_file, f):
         nct_id = root.find('id_info/nct_id').text
         brief_title = root.find('brief_title').text
 
-        sql1 = ''' INSERT INTO study(nct_id, brief_title)  
-                   VALUES(?, ?) '''
-        sql2 = ''' INSERT INTO mesh_term(nct_id, param, value) 
-                   VALUES(?, ?, ?) '''
+        sql1 = ''' INSERT INTO study (nct_id, brief_title)  
+                   VALUES (?, ?); '''
+        sql2 = ''' INSERT INTO mesh_term (nct_id, param, value) 
+                   VALUES (?, ?, ?); '''
+
         cur = conn.cursor()
         row_study = (nct_id, brief_title)
-        print(sql1)
         cur.execute(sql1, row_study)
-        print(nct_id, brief_title)
-        print(cur.lastrowid)
+        conn.commit() # execute the queries
 
         for elem in root.findall('intervention_browse/mesh_term'):
             mesh_term = elem.text
             cur = conn.cursor()
             row_mesh_term = (nct_id, 'mesh_term', mesh_term)
-            print(sql2)
             cur.execute(sql2, row_mesh_term)
-            print(nct_id, 'mesh_term', mesh_term)
-            print(cur.lastrowid)
+            conn.commit() # execute the queries
     
     except Error as e:
         print(e)
@@ -80,6 +84,7 @@ def db_fill(db_file, f):
 
 def db_select(db_file):
     '''
+
     '''
     conn = None
     try:
