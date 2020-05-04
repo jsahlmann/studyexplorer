@@ -1,12 +1,16 @@
 '''
+Transforming all xml files in one folder into html files 
+using an xsl file
 
+
+https://stackoverflow.com/questions/16698935/how-to-transform-an-xml-file-using-xslt-in-python
 '''
 
 import os
 import lxml.etree as ET
 
 inputpath = "G:/projekte/studyexplorer/xml_in/"
-xsltfile = "G:/projekte/studyexplorer/xsl/test2.xsl"
+xsltfile = "G:/projekte/studyexplorer/xsl/ctg_single.xsl"
 outpath = "G:/projekte/studyexplorer/xml_out/"
 
 
