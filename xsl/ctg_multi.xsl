@@ -2,10 +2,12 @@
 <xsl:stylesheet version="1.0"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+<xsl:output method="html"/>
+
 <xsl:template match = "/">
   <html>
   <body>
-  <h2>Study description</h2>
+  <xsl:value-of select="clinical_study/id_info/nct_id"/>
   <xsl:apply-templates/>
   </body>
   </html>
@@ -15,12 +17,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 </xsl:template>
 
 <xsl:template match="clinical_study/id_info">
-  <h3>Study identifier</h3>
-  <p><xsl:value-of select="nct_id"/></p>
 </xsl:template>
 
 <xsl:template match="brief_title">
-  <p><xsl:value-of select="."/></p>
 </xsl:template>
 
 <xsl:template match="sponsors">
@@ -51,12 +50,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 </xsl:template>
 
 <xsl:template match="condition">
-  <p><xsl:value-of select="."/></p>
 </xsl:template>
 
 <xsl:template match="intervention">
-  <p><xsl:value-of select="intervention_type"/></p>
-  <p><xsl:value-of select="intervention_name"/></p>
 </xsl:template>
 
 <xsl:template match="eligibility">
@@ -90,11 +86,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 </xsl:template>
 
 <xsl:template match="condition_browse">
-  <p><xsl:value-of select="mesh_term"/></p>
 </xsl:template>
 
 <xsl:template match="intervention_browse">
-  <p><xsl:value-of select="mesh_term"/></p>
 </xsl:template>
 
 </xsl:stylesheet> 
